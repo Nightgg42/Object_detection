@@ -1,79 +1,191 @@
-![Logo](https://storage.googleapis.com/model_garden_artifacts/TF_Model_Garden.png)
+# TensorFlow Object Detection API
+[![TensorFlow 2.2](https://img.shields.io/badge/TensorFlow-2.2-FF6F00?logo=tensorflow)](https://github.com/tensorflow/tensorflow/releases/tag/v2.2.0)
+[![TensorFlow 1.15](https://img.shields.io/badge/TensorFlow-1.15-FF6F00?logo=tensorflow)](https://github.com/tensorflow/tensorflow/releases/tag/v1.15.0)
+[![Python 3.6](https://img.shields.io/badge/Python-3.6-3776AB)](https://www.python.org/downloads/release/python-360/)
 
-# TensorFlow Research Models
+Creating accurate machine learning models capable of localizing and identifying
+multiple objects in a single image remains a core challenge in computer vision.
+The TensorFlow Object Detection API is an open source framework built on top of
+TensorFlow that makes it easy to construct, train and deploy object detection
+models. At Google we’ve certainly found this codebase to be useful for our
+computer vision needs, and we hope that you will as well. <p align="center">
+<img src="g3doc/img/kites_detections_output.jpg" width=676 height=450> </p>
+Contributions to the codebase are welcome and we would love to hear back from
+you if you find this API useful. Finally if you use the TensorFlow Object
+Detection API for a research publication, please consider citing:
 
-This directory contains code implementations and pre-trained models of published research papers.
+```
+"Speed/accuracy trade-offs for modern convolutional object detectors."
+Huang J, Rathod V, Sun C, Zhu M, Korattikara A, Fathi A, Fischer I, Wojna Z,
+Song Y, Guadarrama S, Murphy K, CVPR 2017
+```
 
-The research models are maintained by their respective authors.
+\[[link](https://arxiv.org/abs/1611.10012)\]\[[bibtex](https://scholar.googleusercontent.com/scholar.bib?q=info:l291WsrB-hQJ:scholar.google.com/&output=citation&scisig=AAGBfm0AAAAAWUIIlnPZ_L9jxvPwcC49kDlELtaeIyU-&scisf=4&ct=citation&cd=-1&hl=en&scfhb=1)\]
 
-## Table of Contents
-- [TensorFlow Research Models](#tensorflow-research-models)
-  - [Table of Contents](#table-of-contents)
-  - [Modeling Libraries and Models](#modeling-libraries-and-models)
-  - [Models and Implementations](#models-and-implementations)
-    - [Computer Vision](#computer-vision)
-    - [Natural Language Processing](#natural-language-processing)
-    - [Audio and Speech](#audio-and-speech)
-    - [Reinforcement Learning](#reinforcement-learning)
-    - [Others](#others)
-    - [Old Models and Implementations in TensorFlow 1](#old-models-and-implementations-in-tensorflow-1)
-  - [Contributions](#contributions)
+<p align="center">
+  <img src="g3doc/img/tf-od-api-logo.png" width=140 height=195>
+</p>
 
-## Modeling Libraries and Models
+## Support for TensorFlow 2 and 1
+The TensorFlow Object Detection API supports both TensorFlow 2 (TF2) and
+TensorFlow 1 (TF1). A majority of the modules in the library are both TF1 and
+TF2 compatible. In cases where they are not, we provide two versions.
 
-| Directory | Name | Description | Maintainer(s) |
-|-----------|------|-------------|---------------|
-| [object_detection](object_detection) | TensorFlow Object Detection API | A framework that makes it easy to construct, train and deploy object detection models<br /><br />A collection of object detection models pre-trained on the COCO dataset, the Kitti dataset, the Open Images dataset, the AVA v2.1 dataset, and the iNaturalist Species Detection Dataset| jch1, tombstone, pkulzc |
-| [slim](slim) | TensorFlow-Slim Image Classification Model Library | A lightweight high-level API of TensorFlow for defining, training and evaluating image classification models <br />• Inception V1/V2/V3/V4<br />• Inception-ResNet-v2<br />• ResNet V1/V2<br />• VGG 16/19<br />• MobileNet V1/V2/V3<br />• NASNet-A_Mobile/Large<br />• PNASNet-5_Large/Mobile | sguada, marksandler2 |
+Although we will continue to maintain the TF1 models and provide support, we
+encourage users to try the Object Detection API with TF2 for the following
+reasons:
 
-## Models and Implementations
+* We provide new architectures supported in TF2 only and we will continue to
+  develop in TF2 going forward.
 
-### Computer Vision
+* The popular models we ported from TF1 to TF2 achieve the same performance.
 
-| Directory | Paper(s) | Conference | Maintainer(s) |
-|-----------|----------|------------|---------------|
-| [attention_ocr](attention_ocr) | [Attention-based Extraction of Structured Information from Street View Imagery](https://arxiv.org/abs/1704.03549) | ICDAR 2017 | xavigibert |
-| [autoaugment](autoaugment) | [1] [AutoAugment](https://arxiv.org/abs/1805.09501)<br />[2] [Wide Residual Networks](https://arxiv.org/abs/1605.07146)<br />[3] [Shake-Shake regularization](https://arxiv.org/abs/1705.07485)<br />[4] [ShakeDrop Regularization for Deep Residual Learning](https://arxiv.org/abs/1802.02375) | [1] CVPR 2019<br />[2] BMVC 2016<br /> [3] ICLR 2017<br /> [4] ICLR 2018 | barretzoph |
-| [deeplab](deeplab) | [1] [DeepLabv1: Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs](https://arxiv.org/abs/1412.7062)<br />[2] [DeepLabv2: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/abs/1606.00915)<br />[3] [DeepLabv3: Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1706.05587)<br />[4] [DeepLabv3+: Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1802.02611)<br />| [1] ICLR 2015 <br />[2] TPAMI 2017 <br />[4] ECCV 2018 | aquariusjay, yknzhu |
-| [delf](delf)  | [1] DELF (DEep Local Features): [Large-Scale Image Retrieval with Attentive Deep Local Features](https://arxiv.org/abs/1612.06321)<br />[2] [Detect-to-Retrieve: Efficient Regional Aggregation for Image Search](https://arxiv.org/abs/1812.01584)<br />[3] DELG (DEep Local and Global features): [Unifying Deep Local and Global Features for Image Search](https://arxiv.org/abs/2001.05027)<br />[4] GLDv2: [Google Landmarks Dataset v2 -- A Large-Scale Benchmark for Instance-Level Recognition and Retrieval](https://arxiv.org/abs/2004.01804) | [1] ICCV 2017<br />[2] CVPR 2019<br />[4] CVPR 2020 | andrefaraujo |
-| [lstm_object_detection](lstm_object_detection) | [Mobile Video Object Detection with Temporally-Aware Feature Maps](https://arxiv.org/abs/1711.06368) | CVPR 2018 | yinxiaoli, yongzhe2160, lzyuan |
-| [marco](marco) | MARCO: [Classification of crystallization outcomes using deep convolutional neural networks](https://arxiv.org/abs/1803.10342) | | vincentvanhoucke |
-| [vid2depth](vid2depth) | [Unsupervised Learning of Depth and Ego-Motion from Monocular Video Using 3D Geometric Constraints](https://arxiv.org/abs/1802.05522) | CVPR 2018 | rezama |
+* A single training and evaluation binary now supports both GPU and TPU
+  distribution strategies making it possible to train models with synchronous
+  SGD by default.
 
-### Natural Language Processing
+* Eager execution with new binaries makes debugging easy!
 
-| Directory | Paper(s) | Conference | Maintainer(s) |
-|-----------|----------|------------|---------------|
-| [adversarial_text](adversarial_text) | [1] [Adversarial Training Methods for Semi-Supervised Text](https://arxiv.org/abs/1605.07725) Classification<br />[2] [Semi-supervised Sequence Learning](https://arxiv.org/abs/1511.01432) | [1] ICLR 2017<br />[2] NIPS 2015 | rsepassi, a-dai |
-| [cvt_text](cvt_text) | [Semi-Supervised Sequence Modeling with Cross-View Training](https://arxiv.org/abs/1809.08370) | EMNLP 2018 | clarkkev, lmthang |
+Finally, if are an existing user of the Object Detection API we have retained
+the same config language you are familiar with and ensured that the
+TF2 training/eval binary takes the same arguments as our TF1 binaries.
 
-### Audio and Speech
+Note: The models we provide in [TF2 Zoo](g3doc/tf2_detection_zoo.md) and
+[TF1 Zoo](g3doc/tf1_detection_zoo.md) are specific to the TensorFlow major
+version and are not interoperable.
 
-| Directory | Paper(s) | Conference | Maintainer(s) |
-|-----------|----------|------------|---------------|
-| [audioset](audioset) | [1] [Audio Set: An ontology and human-labeled dataset for audio events](https://research.google/pubs/pub45857/)<br />[2] [CNN Architectures for Large-Scale Audio Classification](https://research.google/pubs/pub45611/) | ICASSP 2017 | plakal, dpwe |
-| [deep_speech](deep_speech) | [Deep Speech 2](https://arxiv.org/abs/1512.02595) | ICLR 2016 | yhliang2018 |
+Please select one of the links below for TensorFlow version-specific
+documentation of the Object Detection API:
 
-### Reinforcement Learning
+<!-- mdlint off(WHITESPACE_LINE_LENGTH) -->
+### Tensorflow 2.x
+  *   <a href='g3doc/tf2.md'>
+        Object Detection API TensorFlow 2</a><br>
+  *   <a href='g3doc/tf2_detection_zoo.md'>
+        TensorFlow 2 Model Zoo</a><br>
 
-| Directory | Paper(s) | Conference | Maintainer(s) |
-|-----------|----------|------------|---------------|
-| [efficient-hrl](efficient-hrl) | [1] [Data-Efficient Hierarchical Reinforcement Learning](https://arxiv.org/abs/1805.08296)<br />[2] [Near-Optimal Representation Learning for Hierarchical Reinforcement Learning](https://arxiv.org/abs/1810.01257) | [1] NIPS 2018<br /> [2] ICLR 2019 | ofirnachum |
-| [pcl_rl](pcl_rl) | [1] [Improving Policy Gradient by Exploring Under-appreciated Rewards](https://arxiv.org/abs/1611.09321)<br />[2] [Bridging the Gap Between Value and Policy Based Reinforcement Learning](https://arxiv.org/abs/1702.08892)<br />[3] [Trust-PCL: An Off-Policy Trust Region Method for Continuous Control](https://arxiv.org/abs/1707.01891) | [1] ICLR 2017<br />[2] NIPS 2017<br />[3] ICLR 2018 | ofirnachum |
+### Tensorflow 1.x
+  *   <a href='g3doc/tf1.md'>
+        Object Detection API TensorFlow 1</a><br>
+  *   <a href='g3doc/tf1_detection_zoo.md'>
+        TensorFlow 1 Model Zoo</a><br>
+<!-- mdlint on -->
 
-### Others
+## Whats New
 
-| Directory | Paper(s) | Conference | Maintainer(s) |
-|-----------|----------|------------|---------------|
-| [lfads](lfads) | [LFADS - Latent Factor Analysis via Dynamical Systems](https://arxiv.org/abs/1608.06315) | | jazcollins, sussillo |
-| [rebar](rebar) | [REBAR: Low-variance, unbiased gradient estimates for discrete latent variable models](https://arxiv.org/abs/1703.07370) | NIPS 2017 | gjtucker |
+### Mobile Inference for TF2 models
 
-### Old Models and Implementations in TensorFlow 1
+TF2 OD API models can now be converted to TensorFlow Lite! Only SSD models
+currently supported. See <a href='g3doc/running_on_mobile_tf2.md'>documentation</a>.
 
-:warning: If you are looking for old models, please visit the [Archive branch](https://github.com/tensorflow/models/tree/archive/research).
+**Thanks to contributors**: Sachin Joglekar
 
----
+### TensorFlow 2 Support
 
-## Contributions
+We are happy to announce that the TF OD API officially supports TF2! Our release
+includes:
 
-If you want to contribute, please review the [contribution guidelines](https://github.com/tensorflow/models/wiki/How-to-contribute).
+* New binaries for train/eval/export that are designed to run in eager mode.
+* A suite of TF2 compatible (Keras-based) models; this includes migrations of
+  our most popular TF1.x models (e.g., SSD with MobileNet, RetinaNet,
+  Faster R-CNN, Mask R-CNN), as well as a few new architectures for which we
+  will only maintain TF2 implementations:
+
+    1. CenterNet - a simple and effective anchor-free architecture based on
+       the recent [Objects as Points](https://arxiv.org/abs/1904.07850) paper by
+       Zhou et al.
+    2. [EfficientDet](https://arxiv.org/abs/1911.09070) - a recent family of
+       SOTA models discovered with the help of Neural Architecture Search.
+
+* COCO pre-trained weights for all of the models provided as TF2 style
+  object-based checkpoints.
+* Access to [Distribution Strategies](https://www.tensorflow.org/guide/distributed_training)
+  for distributed training --- our model are designed to be trainable using sync
+  multi-GPU and TPU platforms.
+* Colabs demo’ing eager mode training and inference.
+
+See our release blogpost [here](https://blog.tensorflow.org/2020/07/tensorflow-2-meets-object-detection-api.html).
+If you are an existing user of the TF OD API using TF 1.x, don’t worry, we’ve
+got you covered.
+
+**Thanks to contributors**: Akhil Chinnakotla, Allen Lavoie, Anirudh Vegesana,
+Anjali Sridhar, Austin Myers, Dan Kondratyuk, David Ross, Derek Chow, Jaeyoun
+Kim, Jing Li, Jonathan Huang, Jordi Pont-Tuset, Karmel Allison, Kathy Ruan,
+Kaushik Shivakumar, Lu He, Mingxing Tan, Pengchong Jin, Ronny Votel, Sara Beery,
+Sergi Caelles Prat, Shan Yang, Sudheendra Vijayanarasimhan, Tina Tian, Tomer
+Kaftan, Vighnesh Birodkar, Vishnu Banna, Vivek Rathod, Yanhui Liang, Yiming Shi,
+Yixin Shi, Yu-hui Chen, Zhichao Lu.
+
+### MobileDet GPU
+
+We have released SSDLite with MobileDet GPU backbone, which achieves 17% mAP
+higher than the MobileNetV2 SSDLite (27.5 mAP vs 23.5 mAP) on a NVIDIA Jetson
+Xavier at comparable latency (3.2ms vs 3.3ms).
+
+Along with the model definition, we are also releasing model checkpoints trained
+on the COCO dataset.
+
+<b>Thanks to contributors</b>: Yongzhe Wang, Bo Chen, Hanxiao Liu, Le An
+(NVIDIA), Yu-Te Cheng (NVIDIA), Oliver Knieps (NVIDIA), and Josh Park (NVIDIA).
+
+### Context R-CNN
+
+We have released [Context R-CNN](https://arxiv.org/abs/1912.03538), a model that
+uses attention to incorporate contextual information images (e.g. from
+temporally nearby frames taken by a static camera) in order to improve accuracy.
+Importantly, these contextual images need not be labeled.
+
+*   When applied to a challenging wildlife detection dataset
+    ([Snapshot Serengeti](http://lila.science/datasets/snapshot-serengeti)),
+    Context R-CNN with context from up to a month of images outperforms a
+    single-frame baseline by 17.9% mAP, and outperforms S3D (a 3d convolution
+    based baseline) by 11.2% mAP.
+*   Context R-CNN leverages temporal context from the unlabeled frames of a
+    novel camera deployment to improve performance at that camera, boosting
+    model generalizeability.
+
+Read about Context R-CNN on the Google AI blog
+[here](https://ai.googleblog.com/2020/06/leveraging-temporal-context-for-object.html).
+
+We have provided code for generating data with associated context
+[here](g3doc/context_rcnn.md), and a sample config for a Context R-CNN model
+[here](samples/configs/context_rcnn_resnet101_snapshot_serengeti_sync.config).
+
+Snapshot Serengeti-trained Faster R-CNN and Context R-CNN models can be found in
+the
+[model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md#snapshot-serengeti-camera-trap-trained-models).
+
+A colab demonstrating Context R-CNN is provided
+[here](colab_tutorials/context_rcnn_tutorial.ipynb).
+
+<b>Thanks to contributors</b>: Sara Beery, Jonathan Huang, Guanhang Wu, Vivek
+Rathod, Ronny Votel, Zhichao Lu, David Ross, Pietro Perona, Tanya Birch, and the
+Wildlife Insights AI Team.
+
+## Release Notes
+See [notes](g3doc/release_notes.md) for all past releases.
+
+## Getting Help
+
+To get help with issues you may encounter using the TensorFlow Object Detection
+API, create a new question on [StackOverflow](https://stackoverflow.com/) with
+the tags "tensorflow" and "object-detection".
+
+Please report bugs (actually broken code, not usage questions) to the
+tensorflow/models GitHub
+[issue tracker](https://github.com/tensorflow/models/issues), prefixing the
+issue name with "object_detection".
+
+Please check the [FAQ](g3doc/faq.md) for frequently asked questions before
+reporting an issue.
+
+## Maintainers
+
+* Jonathan Huang ([@GitHub jch1](https://github.com/jch1))
+* Vivek Rathod ([@GitHub tombstone](https://github.com/tombstone))
+* Vighnesh Birodkar ([@GitHub vighneshbirodkar](https://github.com/vighneshbirodkar))
+* Austin Myers ([@GitHub austin-myers](https://github.com/austin-myers))
+* Zhichao Lu ([@GitHub pkulzc](https://github.com/pkulzc))
+* Ronny Votel ([@GitHub ronnyvotel](https://github.com/ronnyvotel))
+* Yu-hui Chen ([@GitHub yuhuichen1015](https://github.com/yuhuichen1015))
+* Derek Chow  ([@GitHub derekjchow](https://github.com/derekjchow))
